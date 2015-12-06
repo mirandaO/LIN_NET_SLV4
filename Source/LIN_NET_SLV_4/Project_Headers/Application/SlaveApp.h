@@ -52,19 +52,16 @@
 
 /* Includes */
 /*============================================================================*/
-#include "MPC5606B.h"
-#include "driver_channel_MPC5606B.h"
-#include "stdtypedef.h"
 #include "MAL\LIN_Init.h"
 /* Constants and types */
 /*============================================================================*/
 
 /* Exported Variables */
 /*============================================================================*/
-T_UBYTE rub_NodeState;
+extern T_UBYTE rub_NodeFlag;
+extern T_UBYTE rub_NodeState;
 /* Exported functions prototypes */
 /*============================================================================*/
-void SetNodeState(T_ULONG);
-T_ULONG GetNodeState(void);
+T_UBYTE GetNodeState(void);
 void Slave_StateMachine(void);
 #endif /* SLAVEAPP_H_ */

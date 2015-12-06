@@ -1,7 +1,7 @@
 /*
- * LIN_Init.h
+ * Scheduler.h
  *
- *  Created on: Dec 2, 2015
+ *  Created on: Dec 5, 2015
  *      Author: x
  */
 /*============================================================================*/
@@ -40,100 +40,53 @@
 /*============================================================================*/
 /*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
 /*----------------------------------------------------------------------------*/
-/*                     |LIN NETWORK 1 SLAVE |                                 */
+/*                     |                    |                                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: LIN_Init.h  $
+ * $Log: filename.h  $
   ============================================================================*/
-#ifndef LIN_INIT_H_
-#define LIN_INIT_H_
+#ifndef SCHEDULER_H_
+#define SCHEDULER_H_
+
 
 /* Includes */
 /*============================================================================*/
-#include "MPC5606B.h"
-#include "driver_channel_MPC5606B.h"
-#include "stdtypedef.h"
-
+#include "MAL\Global_Init.h"
+#include "Application\LED_App.h"
+#include "Application\SlaveApp.h"
 /* Constants and types */
 /*============================================================================*/
-typedef enum E_SLV_STATE{DISABLED,ENABLED}t_slv_stat;
-typedef enum E_CMD_TYPE{CMD_NONE,CMD_LED_ON, CMD_LED_OFF,
-				CMD_LED_TOGGLING, CMD_DISABLE_SLV,
-				CMD_ENABLE_SLV}t_cmdType;
-typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
+extern enum{
+	E_TASK1, 
+	E_TASK2,
+	E_TASK3,
+	E_TASK4,
+	
+	/*DO NOT MODIFIED OR ERASE*/
+	E_TASK_NUM
+	
+};
 
-#define INIT_MODE 0x0001
-#define ENABLE_LIN0TX 0x0604
-#define ENABLE_LIN0RX 0x0100
 
-/*Baud rate = Clock speed/(integerBaudRateReg.fractionalBaudRateReg)
- *Baud rate = 64 * 10 ^ 6 / (208.5)
- *Baud rate = 19184.65 bit / s
- * */
-#define INT_BAUD_RATE 208
-#define FR_BAUD_RATE 5
-
-#define NO_TIMEOUT 0
-#define ENHANCED_CHECKSUM 0
-#define ENABLE_BIT_ERROR 1
-#define ENABLE_FILTERS 0b00000011
-#define DISABLE_FILTERS 0b00000000
-#define FILTER_LIST_MODE 0x0
-/*--------------FILTERS BEGINNING-----------------*/
-/*PID = 0xcf
- *ID = 0x0f*/
-#define MASTER_CMD_ALL_ID 0x0f
-/*dfl = numberofbytes-1
- * 1 byte*/
-#define MASTER_CMD_ALL_LENGTH 0
-
-/*PID = 0xd3
- *ID = 0x13*/
-#define MASTER_CMD_SLV4_ID 0x13
-/*dfl= numberofbytes-1
- * 1 byte*/
-#define MASTER_CMD_SLV4_LENGTH 0
-
-/*PID = 0xA3
- *ID = 0x23*/
-#define SLAVE4_RSP_ID 0x23
-/*dfl= numberofbytes-1
- * 2 bytes*/
-#define SLAVE4_RSP_LENGTH 1
-
-/*PID = 0x73
- *ID = 0x33*/
-#define SLAVE4_ID_ID 0x33
-/*dfl = numberofbytes-1
- * 7 bytes*/
-#define SLAVE4_ID_LENGTH 6
-/*------------FILTERS END-----------------------*/
-
-#define RECEIVE_DATA 0
-#define TRANSMIT_DATA 1
-
-/*Header interrupt*/
-#define TX_RX_HEADER_INTPT 7 
-
-#define AUTO_RESYNCH 1
-#define MASTER_13BIT_LENGTH 3
-#define ENTER_NORMAL_MODE 0
 /* Exported Variables */
 /*============================================================================*/
+T_ULONG rul_Count;
+T_ULONG rul_Index;
+T_ULONG raul_NTask[E_TASK_NUM];
+T_UBYTE rub_TickFlag;
 
+typedef struct {
+	void(* rp_Tasks)(void); /*Pointer that'll call the task*/
+	T_ULONG rul_Period; 	/*Period of task*/
+    T_ULONG rul_Offset; 	/*Offset of task*/
+}S_TASK;
 
 /* Exported functions prototypes */
 /*============================================================================*/
-void Init_Lin(void);
-void LinSlaveDataReception(T_UBYTE lub_Data[]);
-void LinSlaveDataTransmission(T_UBYTE lub_Data[8]);
-T_ULONG GetLINStateMachineState(void);
-void ReceptionComplete(void);
-void ClearMessageBuffer(void);
-void ReleaseMessageBuffer(void);
-void HeaderReceived(void);
-void DataTransmissionRequest(void);
+void Tick_Flag(void);
+void kernel (void);
+#endif /* SCHEDULER_H_ */
 
-#endif /* LIN_INIT_H_ */
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */

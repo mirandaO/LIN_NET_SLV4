@@ -1,17 +1,9 @@
 /*
- * SlaveApp.c
+ * Scheduler.c
  *
- *  Created on: Dec 4, 2015
+ *  Created on: Dec 5, 2015
  *      Author: x
  */
-
-/*
- * Slave4_Rsp_Rx_Tx.c
- *
- *  Created on: Dec 4, 2015
- *      Author: x
- */
-
 /*============================================================================*/
 /*                        I BS SOFTWARE GROUP                                 */
 /*============================================================================*/
@@ -48,7 +40,7 @@
 /*============================================================================*/
 /*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
 /*----------------------------------------------------------------------------*/
-/*                     |LIN NETWORK 1 SLAVE |                                 */
+/*                     |                    |                                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -58,7 +50,9 @@
 
 /* Includes */
 /*============================================================================*/
-#include "Application\SlaveApp.h"
+#include "OS\Scheduler.h"
+
+
 /* Constants and types  */
 /*============================================================================*/
 
@@ -67,58 +61,88 @@
 /* Variables */
 /*============================================================================*/
 
+const S_TASK cas_TaskList[E_TASK_NUM] = {
+  /*{Task, Period , Offset}*/
+	{Slave_StateMachine , 500, 0	},
+	{Led_StateMachine , 10, 	3}
+};
 
 /* Private functions prototypes */
 /*============================================================================*/
-void ChangeNodeState(T_UBYTE);
+
 
 
 /* Inline functions */
 /*============================================================================*/
+/*============================================================================*/
+/* ---------------------------- DO NOT MODIFIED ----------------------------- */
+void kernel (void){
+	/* ------------------------------------------------------------------------
+	 *  Name                 :	kernel
+	 *  Description          :  This function starts by doing an indexing of the 
+	 *  						task, assigning the offset. This process occurs 
+	 *  						only once in each execution of the code.
+	 *							Then an infinite loop starts, the tick of the 
+	 *							scheduler is defined by a flag called ub_TickFlag, 
+	 *							which was configured to raise every millisecond. 
+	 *							Once it was acquired it is restarted to zero. 
+	 *							Now, inside the if there is a for cycle which who 
+	 *							through all the task accessing to their offset with 
+	 *							and if, whenever the offset is over zero it will 
+	 *							decrease, for every task. When one of the offset, 
+	 *							of whichever task, reach zero, the else of the if 
+	 *							will be active and will stablish the period of the 
+	 *							task and will call it using the pointer previously defined. 
+	 *  Parameters           :  void
+	 *  Return               :  void
+	 *  -----------------------------------------------------------------------*/
+	for (rul_Index = 0; rul_Index < E_TASK_NUM; rul_Index ++){
+		raul_NTask[rul_Index] = cas_TaskList[rul_Index].rul_Offset;
+	}
+		/* Loop Forever */
+		while (1) {
+			if (rub_TickFlag){
+				rub_TickFlag = 0;
+				for(rul_Count = 0; rul_Count < E_TASK_NUM; rul_Count++){
+					if (raul_NTask[rul_Count] > 0){
+						raul_NTask[rul_Count]--;
+					}
+					else{
+						raul_NTask[rul_Count] = cas_TaskList[rul_Count].rul_Period;
+						cas_TaskList[rul_Count].rp_Tasks();
+					}
+				}
+			}
+			else{}
+		}
+	
+/* ---------------------------- DO NOT MODIFIED ----------------------------- */
+}
+
+void Tick_Flag(void)
+{  /* --------------------------------------------------------------------------
+	*  Name                 :  Tick_Flag
+	*  Description          :  Check if the channel 0 of the STM as reached 1ms
+	*  						   and raise a flag when reached
+	*  Parameters           :  void 
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
+	if (STM.CH[0].CIR.B.CIF)
+	{
+		rub_TickFlag = 1;
+		STM.CH[0].CIR.B.CIF = 1;	/* Clear interrupt flag */
+		STM.CNT.R = 0; 				/*Reset counter*/
+	}
+}
 
 /* Private functions */
 /*============================================================================*/
 
-
-
 /* Exported functions */
 /*============================================================================*/
-void ChangeNodeState(T_UBYTE lul_NodeState)
-{
-	rub_NodeState = lul_NodeState;
-}
 
-T_UBYTE GetNodeState(void)
-{
-	return rub_NodeState;
-}
 
-void Slave_StateMachine(void)
-{
-	switch (GetNodeState())
-		{
-		case DISABLED:
-			if(DISABLED!=rub_NodeFlag)
-			{
-				ChangeNodeState(rub_NodeFlag);
-			}
-			else
-			{
-				/*Do nothing*/
-			}
-			break;
-		case ENABLED:
-			if(ENABLED!=rub_NodeFlag)
-			{
-				ChangeNodeState(rub_NodeFlag);
-			}
-			else
-			{
-				/*Do nothing*/
-			}
-			break;
-			
-		default :
-			break;
-		}
-}
+
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */
+

@@ -67,8 +67,8 @@
 
 /* Variables */
 /*============================================================================*/
-
-
+/*Initial state = OFF*/
+T_UBYTE rub_LedState = OFF;
 
 /* Private functions prototypes */
 /*============================================================================*/
@@ -80,35 +80,84 @@
 
 /* Private functions */
 /*============================================================================*/
-
+void ChangeLedState(T_UBYTE);
 
 
 /* Exported functions */
 /*============================================================================*/
-void SetLedState(T_UBYTE lul_LedState)
+void ChangeLedState(T_UBYTE lul_LedState)
 {
 	rub_LedState = lul_LedState;
 }
 
-T_ULONG GetLedState(void)
+T_UBYTE GetLedState(void)
 {
 	return rub_LedState;
 }
 
 void Led_StateMachine(void)
 {
+	static T_UBYTE lub_TickCounter = RESET_COUNTER;
 	switch (GetLedState())
 		{
-		case CMD_NONE:
+	
+		case OFF:
+			
+			if(ENABLED == rub_NodeState)
+			{
+				GPIO_SetState(LED1,TURN_OFF);
+				/*Change state variable into the requested command*/
+				ChangeLedState(rub_LedFlag);
+			}
+			else
+			{
+			 //do nothing
+			}
 			break;
-		case CMD_LED_ON:
-			//gpio
+		case ON:
+			if(ENABLED == rub_NodeState)
+			{
+				GPIO_SetState(LED1,TURN_ON);
+				/*Change state variable into the requested command*/
+				ChangeLedState(rub_LedFlag);
+			}
+			else
+			{
+			 /*do nothing*/
+			}
 			break;
-		case CMD_LED_OFF:
-			//gpio
-			break;
-		case CMD_LED_TOGGLING:
-			//gpio
+		case TOGGLING:
+			if(ENABLED == rub_NodeState)
+			{
+				if(HOLD_ON == lub_TickCounter )
+				{
+					GPIO_SetState(LED1,TURN_ON);
+				}
+				else {}
+				
+				if(HOLD_OFF == lub_TickCounter )
+				{
+					GPIO_SetState(LED1,TURN_OFF);
+				}
+				else {}
+				
+				/*If a complete cycle has been reached increase lub_TickCounter
+				  otherwise reset it*/
+				if(COMPLETE_CYCLE != lub_TickCounter) 	
+				{
+					lub_TickCounter++;
+				}
+				else
+				{
+					lub_TickCounter = RESET_COUNTER;
+				}
+				/*Change state variable into the requested command*/
+				ChangeLedState(rub_LedFlag);
+			}
+			else
+			{
+			 /*do nothing*/
+			}
 			break;
 			
 		default :

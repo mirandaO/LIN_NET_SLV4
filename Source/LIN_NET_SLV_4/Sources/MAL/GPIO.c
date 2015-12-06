@@ -35,3 +35,18 @@ void GPIO_Init(void)
 	 *  -----------------------------------------------------------------------*/	
 	GPIO_En(LED1, OUTPUT);	 /* Program the drive enable pin of LED3 (PE6) as output       */
 }
+
+
+void GPIO_SetState (T_UWORD ch, T_UBYTE value)
+{/* --------------------------------------------------------------------------
+	*  Name                 :  GPIO_SetState
+	*  Description          :  Set the value received to the pin specified in ch
+	*  Parameters           :  T_UWORD, T_UBYTE
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
+    SIU.GPDO[ch].B.PDO = value;
+}
+
+
+/* Notice: the file ends with a blank new line to avoid compiler warnings */

@@ -30,7 +30,7 @@ C_DEPS_QUOTED += \
 # Each subdirectory must supply rules for building sources it contributes
 Sources/Basic\ Software/Slave4_Rsp_Rx_Tx_c.obj: ../Sources/Basic\ Software/Slave4_Rsp_Rx_Tx.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #10 $<'
+	@echo 'Executing target #11 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/Basic Software/Slave4_Rsp_Rx_Tx.args" -o "Sources/Basic Software/Slave4_Rsp_Rx_Tx_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

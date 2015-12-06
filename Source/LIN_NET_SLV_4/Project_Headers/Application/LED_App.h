@@ -51,21 +51,27 @@
 
 /* Includes */
 /*============================================================================*/
-#include "MPC5606B.h"
-#include "driver_channel_MPC5606B.h"
-#include "stdtypedef.h"
+
 #include "MAL\LIN_Init.h"
+#include "MAL\GPIO.h"
 /* Constants and types */
 /*============================================================================*/
-
+#define TURN_ON 0
+#define TURN_OFF 1
+/*Hold the led on for 10 ticks*/
+#define HOLD_ON 0
+/*Hold the led off for 10 ticks*/
+#define HOLD_OFF 10
+/*Complete cycle = 20 ticks of 10 ms */
+#define COMPLETE_CYCLE 20
+#define RESET_COUNTER 0 
 /* Exported Variables */
 /*============================================================================*/
-T_UBYTE rub_LedState;
-
+extern T_UBYTE rub_LedFlag;
+extern T_UBYTE rub_NodeState;
 /* Exported functions prototypes */
 /*============================================================================*/
-void SetLedState(T_UBYTE);
-T_ULONG GetLedState(void);
+T_UBYTE GetLedState(void);
 void Led_StateMachine(void);
 
 #endif /* LED_APP_H_ */

@@ -41,10 +41,7 @@
 /* Includes */
 /*============================================================================*/
 #include "MAL/Global_Init.h"
-#include "MAL\GPIO.h"
-#include "MAL\System.h"
-#include "MAL\SW_Interrupts.h"
-#include "driver_channel_MPC5606B.h"
+
 
 
 

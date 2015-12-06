@@ -4,6 +4,7 @@ Sources/Basic\ Software/Slave4_Rsp_Rx_Tx_c.obj: C:\Users\x\workspace\LIN_NET_SLV
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\ewl_c_version.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Prefix\MPC5606B_RAM_VLE.prefix \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Basic\ Software\Slave4_Rsp_Rx_Tx.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\LIN_Init.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MPC5606B.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\typedefs.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\stdint.h \
@@ -16,6 +17,6 @@ Sources/Basic\ Software/Slave4_Rsp_Rx_Tx_c.obj: C:\Users\x\workspace\LIN_NET_SLV
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\ewl_lib_ext1.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\driver_channel_MPC5606B.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\stdtypedef.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\LIN_Init.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\LED_App.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\GPIO.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\SlaveApp.h 

@@ -1,8 +1,9 @@
-Sources/MAL/Global_Init_c.obj: C:\Users\x\workspace\LIN_NET_SLV_4\Sources\MAL\Global_Init.c \
+Sources/OS/Scheduler_c.obj: C:\Users\x\workspace\LIN_NET_SLV_4\Sources\OS\Scheduler.c \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\lib_ewl.prefix \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\common.prefix \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\ewl_c_version.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Prefix\MPC5606B_RAM_VLE.prefix \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\OS\Scheduler.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\Global_Init.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MPC5606B.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\typedefs.h \
@@ -19,4 +20,7 @@ Sources/MAL/Global_Init_c.obj: C:\Users\x\workspace\LIN_NET_SLV_4\Sources\MAL\Gl
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\IntcInterrupts.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\GPIO.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\System.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\SW_Interrupts.h 
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\SW_Interrupts.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\LED_App.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\LIN_Init.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\SlaveApp.h 

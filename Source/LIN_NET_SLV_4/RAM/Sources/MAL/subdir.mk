@@ -58,7 +58,7 @@ C_DEPS_QUOTED += \
 # Each subdirectory must supply rules for building sources it contributes
 Sources/MAL/GPIO_c.obj: ../Sources/MAL/GPIO.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #5 $<'
+	@echo 'Executing target #6 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/MAL/GPIO.args" -o "Sources/MAL/GPIO_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -71,7 +71,7 @@ Sources/MAL/%.d: ../Sources/MAL/%.c
 
 Sources/MAL/Global_Init_c.obj: ../Sources/MAL/Global_Init.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #6 $<'
+	@echo 'Executing target #7 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/MAL/Global_Init.args" -o "Sources/MAL/Global_Init_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -79,7 +79,7 @@ Sources/MAL/Global_Init_c.obj: ../Sources/MAL/Global_Init.c
 
 Sources/MAL/LIN_Init_c.obj: ../Sources/MAL/LIN_Init.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #7 $<'
+	@echo 'Executing target #8 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/MAL/LIN_Init.args" -o "Sources/MAL/LIN_Init_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -87,7 +87,7 @@ Sources/MAL/LIN_Init_c.obj: ../Sources/MAL/LIN_Init.c
 
 Sources/MAL/SW_Interrupts_c.obj: ../Sources/MAL/SW_Interrupts.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #8 $<'
+	@echo 'Executing target #9 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/MAL/SW_Interrupts.args" -o "Sources/MAL/SW_Interrupts_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -95,7 +95,7 @@ Sources/MAL/SW_Interrupts_c.obj: ../Sources/MAL/SW_Interrupts.c
 
 Sources/MAL/System_c.obj: ../Sources/MAL/System.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #9 $<'
+	@echo 'Executing target #10 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/MAL/System.args" -o "Sources/MAL/System_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

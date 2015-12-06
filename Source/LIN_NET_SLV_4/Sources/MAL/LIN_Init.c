@@ -72,62 +72,63 @@
 void Init_Lin(void)
 {
 	/* Send INIT mode request */
-   LINFLEX_0.LINCR1.R = INIT_MODE; /* SLEEP=0, INIT=1 */	  
-   /* wait for the INIT mode VERIFY!!!!!!!!!!!!!!!*/
-   while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
-   /*Enable LIN transmission channel 0*/
-   GPIO_En(LIN0TX,ENABLE_LIN0TX);
-   /*Enable LIN transmission channel 0*/
-   GPIO_En(LIN0RX,ENABLE_LIN0RX);
-   
-   /*Baud rate = Clock speed/(integerBaudRateReg.fractionalBaudRateReg)
-    *Baud rate = 64 * 10 ^ 6 / (208.5)
-    *Baud rate = 19184.65 bit / s
-   */
-   LINFLEX_0.LINFBRR.R = FR_BAUD_RATE; 
-   LINFLEX_0.LINIBRR.R = INT_BAUD_RATE;
-   
-   LINFLEX_0.LINCR2.B.IOBE = ENABLE_BIT_ERROR; /* Bit error resets LIN state machine */
-   LINFLEX_0.LINTCSR.R = NO_TIMEOUT; /* LIN timeout mode, no idle on timeout */
-   LINFLEX_0.BIDR.B.CCS = ENHANCED_CHECKSUM; /* enhanced checksum for LIN Slave */
-   
-   /* enter NORMAL mode  with filters*/
-   	LINFLEX_0.IFER.R = ENABLE_FILTER_0_3;		/* enable filters 0-3*/  
-   	LINFLEX_0.IFMR.R = FILTER_LIST_MODE;		/* filters 0 - 3 are in identifier list mode. */
-   	
-   	/*Master_cmdForAll filter*/
-   	LINFLEX_0.IFCR[0].B.CCS = ENHANCED_CHECKSUM;
-   	LINFLEX_0.IFCR[0].B.DFL = MASTER_CMD_ALL_LENGTH;
-   	LINFLEX_0.IFCR[0].B.DIR = RECEIVE_DATA; 
-   	LINFLEX_0.IFCR[0].B.ID =  MASTER_CMD_ALL_ID;
-   
-   	/*Master_cmdForSlave4 filter*/
-   	LINFLEX_0.IFCR[1].B.CCS = ENHANCED_CHECKSUM;
-   	LINFLEX_0.IFCR[1].B.DFL = MASTER_CMD_SLV4_LENGTH;
-   	LINFLEX_0.IFCR[1].B.DIR = RECEIVE_DATA;
-   	LINFLEX_0.IFCR[1].B.ID = MASTER_CMD_SLV4_ID;
-   	
-   	/*slave4_LEDstat and slave4_enabled filter*/
-   	LINFLEX_0.IFCR[2].B.CCS = ENHANCED_CHECKSUM;
-   	LINFLEX_0.IFCR[2].B.DFL = SLAVE4_RSP_LENGTH;
-   	LINFLEX_0.IFCR[2].B.DIR = TRANSMIT_DATA;
-   	LINFLEX_0.IFCR[2].B.ID =  SLAVE4_RSP_ID;
-
-   	/*slave4_supplier and slave4_serial filter*/
-   	LINFLEX_0.IFCR[3].B.CCS = ENHANCED_CHECKSUM;
-   	LINFLEX_0.IFCR[3].B.DFL = SLAVE4_ID_LENGTH;
-   	LINFLEX_0.IFCR[3].B.DIR = TRANSMIT_DATA;
-   	LINFLEX_0.IFCR[3].B.ID = SLAVE4_ID_ID;
-
-   	LINFLEX_0.LINIER.R = TX_RX_HEADER_INTPT;	// enable RX, TX and header interrupt
-   	
-   	// LASE=1 slave automatic resynch enable
-   	LINFLEX_0.LINCR1.B.LASE = AUTO_RESYNCH;
-   	/*master break length reg MBL 11b = 13 bit length */
-   	LINFLEX_0.LINCR1.B.MBL = MASTER_13BIT_LENGTH;
-   	
-   	/*Enter normal mode */
-   	LINFLEX_0.LINCR1.B.INIT = ENTER_NORMAL_MODE;
+	LINFLEX_0.LINCR1.R = INIT_MODE; /* SLEEP=0, INIT=1 */	  
+	/* wait for the INIT mode VERIFY!!!!!!!!!!!!!!!*/
+	while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
+	/*Enable LIN transmission channel 0*/
+	GPIO_En(LIN0TX,ENABLE_LIN0TX);
+	/*Enable LIN transmission channel 0*/
+	GPIO_En(LIN0RX,ENABLE_LIN0RX);
+	
+	/*Baud rate = Clock speed/(integerBaudRateReg.fractionalBaudRateReg)
+	*Baud rate = 64 * 10 ^ 6 / (208.5)
+	*Baud rate = 19184.65 bit / s
+	*/
+	LINFLEX_0.LINFBRR.R = FR_BAUD_RATE; 
+	LINFLEX_0.LINIBRR.R = INT_BAUD_RATE;
+	
+	LINFLEX_0.LINCR2.B.IOBE = ENABLE_BIT_ERROR; /* Bit error resets LIN state machine */
+	LINFLEX_0.LINTCSR.R = NO_TIMEOUT; /* LIN timeout mode, no idle on timeout */
+	LINFLEX_0.BIDR.B.CCS = ENHANCED_CHECKSUM; /* enhanced checksum for LIN Slave */
+	
+	/* enter NORMAL mode  with filters*/
+	LINFLEX_0.IFER.B.FACT = DISABLE_FILTERS;	    /* Disable filters: this must be done before defining filters*/ 
+	LINFLEX_0.IFER.B.FACT = ENABLE_FILTERS;		/* enable filters 0-3*/  
+	LINFLEX_0.IFMR.R = FILTER_LIST_MODE;		/* filters 0 - 3 are in identifier list mode. */
+	
+	/*Master_cmdForAll filter*/
+	LINFLEX_0.IFCR[0].B.CCS = ENHANCED_CHECKSUM;
+	LINFLEX_0.IFCR[0].B.DFL = MASTER_CMD_ALL_LENGTH;
+	LINFLEX_0.IFCR[0].B.DIR = RECEIVE_DATA; 
+	LINFLEX_0.IFCR[0].B.ID =  MASTER_CMD_ALL_ID;
+	
+	/*Master_cmdForSlave4 filter*/
+	LINFLEX_0.IFCR[1].B.CCS = ENHANCED_CHECKSUM;
+	LINFLEX_0.IFCR[1].B.DFL = MASTER_CMD_SLV4_LENGTH;
+	LINFLEX_0.IFCR[1].B.DIR = RECEIVE_DATA;
+	LINFLEX_0.IFCR[1].B.ID = MASTER_CMD_SLV4_ID;
+	
+	/*slave4_LEDstat and slave4_enabled filter*/
+	LINFLEX_0.IFCR[2].B.CCS = ENHANCED_CHECKSUM;
+	LINFLEX_0.IFCR[2].B.DFL = SLAVE4_RSP_LENGTH;
+	LINFLEX_0.IFCR[2].B.DIR = TRANSMIT_DATA;
+	LINFLEX_0.IFCR[2].B.ID =  SLAVE4_RSP_ID;
+	
+	/*slave4_supplier and slave4_serial filter*/
+	LINFLEX_0.IFCR[3].B.CCS = ENHANCED_CHECKSUM;
+	LINFLEX_0.IFCR[3].B.DFL = SLAVE4_ID_LENGTH;
+	LINFLEX_0.IFCR[3].B.DIR = TRANSMIT_DATA;
+	LINFLEX_0.IFCR[3].B.ID = SLAVE4_ID_ID;
+	
+	LINFLEX_0.LINIER.R = TX_RX_HEADER_INTPT;	// enable RX, TX and header interrupt
+	
+	// LASE=1 slave automatic resynch enable
+	LINFLEX_0.LINCR1.B.LASE = AUTO_RESYNCH;
+	/*master break length reg MBL 11b = 13 bit length */
+	LINFLEX_0.LINCR1.B.MBL = MASTER_13BIT_LENGTH;
+	
+	/*Enter normal mode */
+	LINFLEX_0.LINCR1.B.INIT = ENTER_NORMAL_MODE;
 }
 
 void LinSlaveDataReception(T_UBYTE laub_Data[8])

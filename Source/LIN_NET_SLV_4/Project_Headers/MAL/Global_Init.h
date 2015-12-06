@@ -54,8 +54,11 @@
 /*============================================================================*/
 #include "MPC5606B.h"
 #include "stdtypedef.h"
+#include "driver_channel_MPC5606B.h"
 #include "IntcInterrupts.h"
-
+#include "MAL\GPIO.h"
+#include "MAL\System.h"
+#include "MAL\SW_Interrupts.h"
 /* Constants and types */
 /*============================================================================*/
 

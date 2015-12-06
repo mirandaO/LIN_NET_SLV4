@@ -37,7 +37,7 @@ C_DEPS_QUOTED += \
 # Each subdirectory must supply rules for building sources it contributes
 Sources/Application/LED_App_c.obj: ../Sources/Application/LED_App.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #11 $<'
+	@echo 'Executing target #12 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/Application/LED_App.args" -o "Sources/Application/LED_App_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'
@@ -50,7 +50,7 @@ Sources/Application/%.d: ../Sources/Application/%.c
 
 Sources/Application/SlaveApp_c.obj: ../Sources/Application/SlaveApp.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #12 $<'
+	@echo 'Executing target #13 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/Application/SlaveApp.args" -o "Sources/Application/SlaveApp_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

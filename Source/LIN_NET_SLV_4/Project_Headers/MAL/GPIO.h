@@ -66,4 +66,5 @@
 /*============================================================================*/
 void GPIO_Init(void);
 void GPIO_En(T_SWORD, T_UWORD);
+void GPIO_SetState (uint16_t ch, uint8_t value);
 #endif /* GPIO_H_ */

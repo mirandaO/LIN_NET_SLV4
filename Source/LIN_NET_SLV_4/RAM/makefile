@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-#Progress monitor hint: 16
+#Progress monitor hint: 17
 first : all
 -include ../makefile.init
 
@@ -15,6 +15,7 @@ RM := "$(GNU_Make_Install_DirEnv)/rm" -f
 -include sources.mk
 -include subdir.mk
 -include Sources/subdir.mk
+-include Sources/OS/subdir.mk
 -include Sources/MAL/subdir.mk
 -include Sources/Basic\ Software/subdir.mk
 -include Sources/Application/subdir.mk
@@ -76,7 +77,7 @@ all: warning-messages explicit-dependencies LIN_NET_SLV_4.elf
 # Tool invocations
 LIN_NET_SLV_4.elf: $(OBJS) $(USER_OBJS) ../Project_Settings/Linker_Files/MPC5606B_RAM.lcf
 	@echo 'Building target: $@'
-	@echo 'Executing target #17 $@'
+	@echo 'Executing target #18 $@'
 	@echo 'Invoking: PowerPC Linker'
 	"$(PAToolsDirEnv)/mwldeppc" -o "LIN_NET_SLV_4.elf" @@"LIN_NET_SLV_4.args"  $(USER_OBJS_QUOTED)
 	@echo 'Finished building target: $@'
