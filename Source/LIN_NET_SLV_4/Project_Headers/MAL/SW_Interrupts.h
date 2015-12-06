@@ -65,6 +65,6 @@
 /* Exported functions prototypes */
 /*============================================================================*/
 void INTC_init(void);
-void Enable_Interrupts(void);
+//void Enable_Interrupts(void);
 
 #endif /* SW_INTERRUPTS_H_ */

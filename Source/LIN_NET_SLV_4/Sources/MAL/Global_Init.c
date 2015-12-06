@@ -60,7 +60,7 @@
 /* T_SEC = 10 miliseconds
  * T_HEX = (64 * 10 ^ 6) * (10 * 10 ^(-3))
  * T_HEX = 0x9C400*/
-#define T10MS 0x9C400
+#define T10MS 0xFA00
 
 
 /* Variables */

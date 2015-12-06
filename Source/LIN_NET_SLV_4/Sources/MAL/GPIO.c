@@ -34,6 +34,8 @@ void GPIO_Init(void)
 	 *  Return               :  void
 	 *  -----------------------------------------------------------------------*/	
 	GPIO_En(LED1, OUTPUT);	 /* Program the drive enable pin of LED3 (PE6) as output       */
+	/*For test purposes*/
+	GPIO_En(SW_A_PINCH, INPUT);
 }
 
 

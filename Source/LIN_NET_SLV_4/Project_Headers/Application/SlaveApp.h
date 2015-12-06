@@ -59,7 +59,7 @@
 /* Exported Variables */
 /*============================================================================*/
 extern T_UBYTE rub_NodeFlag;
-extern T_UBYTE rub_NodeState;
+T_UBYTE rub_NodeState;
 /* Exported functions prototypes */
 /*============================================================================*/
 T_UBYTE GetNodeState(void);

@@ -85,16 +85,44 @@ void ChangeNodeState(T_UBYTE);
 /*============================================================================*/
 void ChangeNodeState(T_UBYTE lul_NodeState)
 {
+	/* --------------------------------------------------------------------------
+	*  Name                 :  ChangeNodeState
+	*  Description          :  Change the state variable depending on the command. 
+	*  Parameters           :  T_UBYTE lul_NodeState
+	*  								Possible states: DISABLED, and ENABLED.
+	*  								
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
 	rub_NodeState = lul_NodeState;
 }
 
 T_UBYTE GetNodeState(void)
 {
+	/* --------------------------------------------------------------------------
+	*  Name                 :  GetNodeState
+	*  Description          :  Get the current state of the node
+	*  Parameters           :  void
+	*  								
+	*  Return               :  T_UBYTE
+	*  -------------------------------------------------------------------------
+	*/
 	return rub_NodeState;
 }
 
 void Slave_StateMachine(void)
 {
+	/* --------------------------------------------------------------------------
+		*  Name                 :  Slave_StateMachine
+		*  Description          :  This state machine will be called every 500ms.
+		*  Initial state is DISABLE. Node variable state could have two states: DISABLED and 
+		*  ENABLED. When master commands, the state variable is changed by using rub_NodeFlag 
+		*  variable that is the command.    							
+		*  Parameters           :  void
+		*  								
+		*  Return               :  void
+		*  -------------------------------------------------------------------------
+		*/
 	switch (GetNodeState())
 		{
 		case DISABLED:

@@ -87,16 +87,47 @@ void ChangeLedState(T_UBYTE);
 /*============================================================================*/
 void ChangeLedState(T_UBYTE lul_LedState)
 {
+	/* --------------------------------------------------------------------------
+	*  Name                 :  ChangeLedState
+	*  Description          :  Change the state variable depending on the command. 
+	*  Parameters           :  T_UBYTE lul_LedState
+	*  								Possible states: OFF, ON, and TOGGLING.
+	*  								
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
 	rub_LedState = lul_LedState;
 }
 
 T_UBYTE GetLedState(void)
 {
+	/* --------------------------------------------------------------------------
+	*  Name                 :  GetLedState
+	*  Description          :  Get the current state of the led
+	*  Parameters           :  void
+	*  								
+	*  Return               :  T_UBYTE
+	*  -------------------------------------------------------------------------
+	*/
 	return rub_LedState;
 }
 
 void Led_StateMachine(void)
 {
+	/* --------------------------------------------------------------------------
+		*  Name                 :  Led_StateMachine
+		*  Description          :  This state machine will be called every 1ms.
+		*  Initial state is OFF. Led variable state could have three states: OFF, ON, and TOGGLING.
+		*  If the node is enabled then the master command is listened. 
+		*  When the command is received the rub_LedFlag is changed
+		*  depending on the command. The state variable will be changed in the subsequent
+		*  tick. If the node is disable, the current state is kept, until a different command, 
+		*  when node is enabled, is listened.      							
+		*  Parameters           :  void
+		*  								
+		*  Return               :  void
+		*  -------------------------------------------------------------------------
+		*/
 	static T_UBYTE lub_TickCounter = RESET_COUNTER;
 	switch (GetLedState())
 		{
@@ -129,19 +160,21 @@ void Led_StateMachine(void)
 		case TOGGLING:
 			if(ENABLED == rub_NodeState)
 			{
+				/*If a cycle has begun turn on the led*/
 				if(HOLD_ON == lub_TickCounter )
 				{
 					GPIO_SetState(LED1,TURN_ON);
 				}
-				else {}
+				else { /*do nothing*/}
 				
+				/*If a half cycle has been reached turn off the led*/
 				if(HOLD_OFF == lub_TickCounter )
 				{
 					GPIO_SetState(LED1,TURN_OFF);
 				}
-				else {}
+				else { /*do nothing*/}
 				
-				/*If a complete cycle has been reached increase lub_TickCounter
+				/*If a complete cycle hasn't been reached increase lub_TickCounter
 				  otherwise reset it*/
 				if(COMPLETE_CYCLE != lub_TickCounter) 	
 				{

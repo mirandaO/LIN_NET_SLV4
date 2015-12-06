@@ -73,7 +73,7 @@
 /*============================================================================*/
 void INTC_init(void){
 	/* ------------------------------------------------------------------------
-	 *  Name                 :	GPIO_Init
+	 *  Name                 :	INTC_init
 	 *  Description          :  Activates the use of interrupts
 	 *  Parameters           :  void
 	 *  Return               :  void
@@ -81,11 +81,11 @@ void INTC_init(void){
 	INTC.CPR.R = 0;
 }
 
-void Enable_Interrupts()
+/*void Enable_Interrupts()
 {
 	asm(" wrteei 1");
 	INTC.CPR.R = 0;
-}
+}*/
 /* Private functions */
 /*============================================================================*/
 

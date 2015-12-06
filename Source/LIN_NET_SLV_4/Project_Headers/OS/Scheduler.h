@@ -54,15 +54,12 @@
 /* Includes */
 /*============================================================================*/
 #include "MAL\Global_Init.h"
-#include "Application\LED_App.h"
-#include "Application\SlaveApp.h"
+
 /* Constants and types */
 /*============================================================================*/
 extern enum{
 	E_TASK1, 
 	E_TASK2,
-	E_TASK3,
-	E_TASK4,
 	
 	/*DO NOT MODIFIED OR ERASE*/
 	E_TASK_NUM
@@ -85,8 +82,12 @@ typedef struct {
 
 /* Exported functions prototypes */
 /*============================================================================*/
+extern void Slave_StateMachine(void);
+extern void Led_StateMachine(void);
+
 void Tick_Flag(void);
 void kernel (void);
+
 #endif /* SCHEDULER_H_ */
 
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

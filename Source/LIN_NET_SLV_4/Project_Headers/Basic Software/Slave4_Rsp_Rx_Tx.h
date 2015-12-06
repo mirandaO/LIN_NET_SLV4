@@ -54,21 +54,26 @@
 /* Includes */
 /*============================================================================*/
 #include "MAL\LIN_Init.h"
-#include "Application\LED_App.h"
-#include "Application\SlaveApp.h"
+
 /* Constants and types */
 /*============================================================================*/
 
 /* Exported Variables */
 /*============================================================================*/
 extern e_cmdType;
-T_UBYTE rub_LedFlag;
-T_UBYTE rub_NodeFlag;
+
+T_UBYTE rub_LedFlag = OFF;
+T_UBYTE rub_NodeFlag = DISABLED;
 /* Exported functions prototypes */
 /*============================================================================*/
-
+extern T_UBYTE GetNodeState(void);
+extern T_UBYTE GetLedState(void);
+/*Interrupts Beginnig*/
 void LINFlex_0_RX_ISR(void);
 void LINFlex_0_TX_ISR(void);
+void SendMessage(void);
+/*Interrupts End*/
+
 void ProcessCommand(T_UBYTE []);
 void SendLedCommand(T_UBYTE);
 void SendNodeCommand(T_UBYTE);

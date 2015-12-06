@@ -55,7 +55,7 @@
 /* Constants and types  */
 /*============================================================================*/
 
-
+#define SWITCH_INTERR_FLAG SIU.ISR.B.EIF21
 
 /* Variables */
 /*============================================================================*/
@@ -196,6 +196,58 @@ void LINFlex_0_TX_ISR(void)
 	
 }
 
+void SendMessage(void)
+{
+	/* --------------------------------------------------------------------------
+	*  Name                 :  Send Message
+	*  Description          :  Emulates the master commands of function ProcessCommand
+	*  by using the third switch of the
+	*  board.   When switch is pressed and interrupt take place. Each command correspond to 
+	*  a value of counter variable. 
+	*  This function was created for testing purposes to verify the correct functionality 
+	*  of the state machines.
+	*  							
+	*  Parameters           :  void
+	*  								
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
+	static int counter = 1;
+	if (SWITCH_INTERR_FLAG)
+	{
+		switch (counter)
+			{
+
+			case 2:
+				SendLedCommand(ON);
+				break;
+			case 3:
+				SendLedCommand(OFF);
+				break;
+			case 4:
+				SendLedCommand(TOGGLING);
+				break;
+			case 5:
+				SendNodeCommand(DISABLED);
+				counter = 0;
+					break;
+			case 1:
+				SendNodeCommand(ENABLED);
+				break;
+			default :
+				break;
+			}
+		
+		SWITCH_INTERR_FLAG = 1;
+	}
+	else
+	{
+	  /*DO NOTHING*/
+	}
+	
+	counter++;
+}
+
 void ProcessCommand(T_UBYTE laub_Msg[1])
 {
 	/* --------------------------------------------------------------------------
@@ -270,3 +322,4 @@ void SendNodeCommand(T_UBYTE lub_NodeFlg)
 	rub_NodeFlag = lub_NodeFlg;
 	
 }
+

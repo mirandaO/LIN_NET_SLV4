@@ -16,7 +16,4 @@ Sources/Basic\ Software/Slave4_Rsp_Rx_Tx_c.obj: C:\Users\x\workspace\LIN_NET_SLV
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\limits_api.h \
 	C:\Freescale\CW\ MCU\ v10.6\MCU\PA_Support\ewl\EWL_C\include\ewl_lib_ext1.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\driver_channel_MPC5606B.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\stdtypedef.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\LED_App.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\GPIO.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\Application\SlaveApp.h 
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\stdtypedef.h 
