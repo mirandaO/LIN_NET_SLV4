@@ -264,6 +264,33 @@ void DataTxAcknowledge(void)
 		     *  -----------------------------------------------------------------------*/	
 	LINFLEX_0.LINSR.B.DTF = 1;
 }
+void WriteTxBuffer(T_UBYTE lub_Response)
+{
+	/* ------------------------------------------------------------------------
+		     *  Name                 :	WriteTxBuffer
+		     *  Description          : Write on buffer the data requested by the master: either 
+		     *  the states of the node/led, or the team number and the initials.  
+		     *  Parameters           :  T_UBYTE lub_Response
+		     *  Return               :  void
+		     *  -----------------------------------------------------------------------*/	
+	if(lub_Response)
+	{
+		/*Return Led status*/
+		LINFLEX_0.BDRL.B.DATA0 = GetLedState();
+		/*Return Node status*/
+		LINFLEX_0.BDRL.B.DATA1 = GetNodeState(); 
+	}
+	else
+	{
+		LINFLEX_0.BDRL.B.DATA0 = TEAMNUMBER;
+		LINFLEX_0.BDRL.B.DATA1 = 'G';
+		LINFLEX_0.BDRL.B.DATA2 = 'R';
+		LINFLEX_0.BDRL.B.DATA3 = 'V';
+		LINFLEX_0.BDRM.B.DATA4 = 'O';
+		LINFLEX_0.BDRM.B.DATA5 = 'M';
+		LINFLEX_0.BDRM.B.DATA6 = 'G';      
+	} 
+}
 /* Private functions */
 /*============================================================================*/
 

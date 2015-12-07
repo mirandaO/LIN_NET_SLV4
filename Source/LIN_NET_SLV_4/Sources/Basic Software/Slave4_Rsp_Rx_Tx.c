@@ -108,6 +108,7 @@ void LINFlex_0_RX_ISR(void)
 				
 				/* get the data */
 				LinSlaveDataReception(laub_RxData);
+				/*Send data either to slave or led machine*/
 				ProcessCommand(laub_RxData);
 				ReceptionComplete();
 				ClearMessageBuffer();
@@ -123,6 +124,7 @@ void LINFlex_0_RX_ISR(void)
 				
 				/* get the data */
 				LinSlaveDataReception(laub_RxData);
+				/*Send data either to slave or led machine*/
 				ProcessCommand(laub_RxData);
 				ReceptionComplete();
 				ClearMessageBuffer();
@@ -164,10 +166,7 @@ void LINFlex_0_TX_ISR(void)
 				SetBufferDirection(TRANSMIT); /* BDR direction - write */
 			
 				/* fill the BDR registers */
-				/*Return Led status*/
-				LINFLEX_0.BDRL.B.DATA0 = GetLedState();
-				/*Return Node status*/
-				LINFLEX_0.BDRL.B.DATA1 = GetNodeState();    
+				WriteTxBuffer(SENDSTATES);
 				
 				//LINFLEX_0.BIDR.B.DFL = 1;  Verify page 525, sec. 24.7.2.1
 				
@@ -181,13 +180,7 @@ void LINFlex_0_TX_ISR(void)
 				SetBufferDirection(TRANSMIT); /* BDR direction - write probably not necessary*/
 			
 				/* fill the BDR registers */
-				LINFLEX_0.BDRL.B.DATA0 = 4;
-				LINFLEX_0.BDRL.B.DATA1 = 'G';
-				LINFLEX_0.BDRL.B.DATA2 = 'R';
-				LINFLEX_0.BDRL.B.DATA3 = 'V';
-				LINFLEX_0.BDRM.B.DATA4 = 'O';
-				LINFLEX_0.BDRM.B.DATA5 = 'M';
-				LINFLEX_0.BDRM.B.DATA6 = 'G';       
+				WriteTxBuffer(SENDTEAMINFO);    
 				
 				/* trigger the data transmission */
 				DataTransmissionRequest();

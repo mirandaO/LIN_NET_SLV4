@@ -123,6 +123,7 @@ typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
 #define ENTER_NORMAL_MODE 0
 #define TRANSMIT 1
 #define RECEIVE 0
+#define TEAMNUMBER 4
 /* Exported Variables */
 /*============================================================================*/
 
@@ -141,4 +142,5 @@ void DataTransmissionRequest(void);
 T_UBYTE GetBufferId(void);
 void SetBufferDirection(T_UBYTE);
 void DataTxAcknowledge(void);
+void WriteTxBuffer(T_UBYTE);
 #endif /* LIN_INIT_H_ */
