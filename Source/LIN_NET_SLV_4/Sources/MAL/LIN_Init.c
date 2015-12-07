@@ -10,9 +10,9 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.c $
+ * $Source: LIN_Init.c $
  * $Revision: version $
- * $Author: author $
+ * $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
  * $Date: date $
  */
 /*============================================================================*/
@@ -45,7 +45,7 @@
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: filename.c  $
+ * $Log: LIN_Init.c  $
   ============================================================================*/
 
 /* Includes */
@@ -72,7 +72,8 @@
 void Init_Lin(void)
 {
 	/* Send INIT mode request */
-	LINFLEX_0.LINCR1.R = INIT_MODE; /* SLEEP=0, INIT=1 */	  
+	LINFLEX_0.LINCR1.R = INIT_MODE; /* SLEEP=0, INIT=1 */	
+	LINFLEX_0.UARTCR.B.UART = 0;	  /* UART working on LIN mode 
 	/* wait for the INIT mode VERIFY!!!!!!!!!!!!!!!*/
 	while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
 	/*Enable LIN transmission channel 0*/
@@ -93,8 +94,8 @@ void Init_Lin(void)
 	
 	/* enter NORMAL mode  with filters*/
 	LINFLEX_0.IFER.B.FACT = DISABLE_FILTERS;	    /* Disable filters: this must be done before defining filters*/ 
-	LINFLEX_0.IFER.B.FACT = ENABLE_FILTERS;		/* enable filters 0-3*/  
 	LINFLEX_0.IFMR.R = FILTER_LIST_MODE;		/* filters 0 - 3 are in identifier list mode. */
+	LINFLEX_0.IFER.B.FACT = ENABLE_FILTERS;		/* enable filters 0-3*/  
 	
 	/*Master_cmdForAll filter*/
 	LINFLEX_0.IFCR[0].B.CCS = ENHANCED_CHECKSUM;
@@ -213,7 +214,7 @@ void HeaderReceived(void)
 void DataTransmissionRequest(void)
 {
 	/* ------------------------------------------------------------------------
-		     *  Name                 :	HeaderReceived
+		     *  Name                 :	DataTransmissionRequest
 		     *  Description          :  Set by software in Slave mode to request the transmission
 		     *  of the LIN Data field stored in the Buffer data register.
 		     *  This bit can be set only when HRF bit in LINSR is set.
@@ -223,6 +224,45 @@ void DataTransmissionRequest(void)
 		     *  Return               :  void
 		     *  -----------------------------------------------------------------------*/
 	LINFLEX_0.LINCR2.B.DTRQ = 1;
+}
+
+T_UBYTE GetBufferId(void)
+{
+	/* ------------------------------------------------------------------------
+		     *  Name                 :	GetBufferId
+		     *  Description          :  Returns the id (without parity identifier)
+		     *   received in the buffer when an Tx or Rx interrupt
+		     *  take place.
+		     *  Parameters           :  void
+		     *  Return               :  T_UBYTE
+		     *  -----------------------------------------------------------------------*/
+	return (T_UBYTE)LINFLEX_0.BIDR.B.ID;
+}
+
+void SetBufferDirection(T_UBYTE lub_Dir)
+{
+	/* ------------------------------------------------------------------------
+		     *  Name                 :	SetBufferDirection
+		     *  Description          : Direction
+				This bit controls the direction of the data field.
+				0: LINFlexD receives the data and copy them in the BDR registers.
+				1: LINFlexD transmits the data from the BDR registers.
+		     *  Parameters           :  T_UBYTE
+		     *  Return               :  void
+		     *  -----------------------------------------------------------------------*/
+	LINFLEX_0.BIDR.B.DIR = lub_Dir;
+}
+
+void DataTxAcknowledge(void)
+{
+	/* ------------------------------------------------------------------------
+		     *  Name                 :	DataTxAcknowledge
+		     *  Description          : When transmission interrupt take place, it is necessary
+		     *  to send and acknowledge to be able to receive new transmission interrupts. 
+		     *  Parameters           :  void
+		     *  Return               :  void
+		     *  -----------------------------------------------------------------------*/	
+	LINFLEX_0.LINSR.B.DTF = 1;
 }
 /* Private functions */
 /*============================================================================*/

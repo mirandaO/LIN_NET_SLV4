@@ -18,7 +18,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.c $
+ * $Source: SlaveApp.c $
  * $Revision: version $
  * $Author: author $
  * $Date: date $

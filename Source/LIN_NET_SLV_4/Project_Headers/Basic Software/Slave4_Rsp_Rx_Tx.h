@@ -11,10 +11,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.x $
- * $Revision: version $
- * $Author: author $
- * $Date: date $
+ * $Source: Slave4_Rsp_Rx_Rt.c $
+ * $Revision: 18 $
+* $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
+ * $Date: 12/06/2015 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */

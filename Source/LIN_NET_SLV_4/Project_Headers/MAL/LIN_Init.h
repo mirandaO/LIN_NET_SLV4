@@ -11,9 +11,9 @@
 /*============================================================================*/
 /*!
  * $Source: filename.x $
- * $Revision: version $
- * $Author: author $
- * $Date: date $
+ * $Revision: 18 $
+ * $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
+ * $Date: 12/06/2015 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -72,11 +72,12 @@ typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
  *Baud rate = 64 * 10 ^ 6 / (208.5)
  *Baud rate = 19184.65 bit / s
  * */
-#define INT_BAUD_RATE 208
-#define FR_BAUD_RATE 5
+#define INT_BAUD_RATE 416
+#define FR_BAUD_RATE 11
 
 #define NO_TIMEOUT 0
-#define ENHANCED_CHECKSUM 0
+/*Enhanced 0, classic 1*/
+#define ENHANCED_CHECKSUM 1
 #define ENABLE_BIT_ERROR 1
 #define ENABLE_FILTERS 0b00000011
 #define DISABLE_FILTERS 0b00000000
@@ -120,6 +121,8 @@ typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
 #define AUTO_RESYNCH 1
 #define MASTER_13BIT_LENGTH 3
 #define ENTER_NORMAL_MODE 0
+#define TRANSMIT 1
+#define RECEIVE 0
 /* Exported Variables */
 /*============================================================================*/
 
@@ -135,5 +138,7 @@ void ClearMessageBuffer(void);
 void ReleaseMessageBuffer(void);
 void HeaderReceived(void);
 void DataTransmissionRequest(void);
-
+T_UBYTE GetBufferId(void);
+void SetBufferDirection(T_UBYTE);
+void DataTxAcknowledge(void);
 #endif /* LIN_INIT_H_ */

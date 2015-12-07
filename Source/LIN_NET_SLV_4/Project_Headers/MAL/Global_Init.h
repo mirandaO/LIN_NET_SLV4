@@ -11,8 +11,8 @@
 /*============================================================================*/
 /*!
  * $Source: Global_Init.h $
- * $Revision: 1.0 $
- * $Author: Guillermo Ramirez $
+ * $Revision: 18 $
+ * $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
  * $Date: 13/11/2015 $
  */
 /*============================================================================*/

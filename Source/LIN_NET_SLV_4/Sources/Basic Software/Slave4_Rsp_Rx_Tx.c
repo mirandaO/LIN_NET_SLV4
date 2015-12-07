@@ -13,7 +13,7 @@
 /*!
  * $Source: filename.c $
  * $Revision: version $
- * $Author: author $
+ * $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
  * $Date: date $
  */
 /*============================================================================*/
@@ -80,19 +80,21 @@
 
 void LINFlex_0_RX_ISR(void)
 {
-	/*******************************************************************************
-	Function Name : LINFlex_0_RX_ISR
-	Parameters    : NONE
-	Modifies      : rx_data - received data
-	Returns       : NONE
-	Notes         : Rx data ISR on LINFlex_0. 
-					Called if there is match with RX filter and data is received 
-	*******************************************************************************/
+	/* --------------------------------------------------------------------------
+	*  Name                 :  LINFlex_0_RX_ISR
+	*  Description          :  This function is called when a reception id from the filters 
+	*  defined match. When this happens the master command is listened and send the command 
+	*  either to node state machine or led state machine.							
+	*  Parameters           : void
+	*  								
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
 	T_UBYTE lin_bidr;
 	T_UBYTE laub_RxData[8];
-	T_ULONG lub_LinStatus;
+	//T_ULONG lub_LinStatus;
 	
-	lin_bidr = (T_UBYTE)LINFLEX_0.BIDR.B.ID;
+	lin_bidr = GetBufferId();
 	HeaderReceived();
 	
 	    switch(lin_bidr)
@@ -100,7 +102,7 @@ void LINFlex_0_RX_ISR(void)
 			case MASTER_CMD_ALL_ID:
 				
 				//LINFLEX_0.BIDR.B.DFL = 0; one byte verify page 526
-				lub_LinStatus = GetLINStateMachineState();
+				//lub_LinStatus = GetLINStateMachineState();
 					/* wait for RMB */
 				ReleaseMessageBuffer();
 				
@@ -115,7 +117,7 @@ void LINFlex_0_RX_ISR(void)
 			case MASTER_CMD_SLV4_ID:
 				
 				//LINFLEX_0.BIDR.B.DFL = 0; one byte verify page 526
-				lub_LinStatus = GetLINStateMachineState();
+				//lub_LinStatus = GetLINStateMachineState();
 					/* wait for RMB */
 				ReleaseMessageBuffer();
 				
@@ -135,63 +137,72 @@ void LINFlex_0_RX_ISR(void)
 
 void LINFlex_0_TX_ISR(void)
 {
-	T_UBYTE lin_bidr;
-	lin_bidr = (T_UBYTE)LINFLEX_0.BIDR.B.ID;
-    switch(lin_bidr)
-    {
-    case SLAVE4_RSP_ID:
-    	if(GetLINStateMachineState()&0x1)		/* if header received */
-    	{
-    		
-    		LINFLEX_0.BIDR.B.DIR = 0; /* BDR direction - write */
-        
-    	    /* fill the BDR registers */
-    		/*Return Led status*/
-    	    LINFLEX_0.BDRL.B.DATA0 = GetLedState();
-    	    /*Return Node status*/
-    	    LINFLEX_0.BDRL.B.DATA1 = GetNodeState();    
-    	    
-    	    //LINFLEX_0.BIDR.B.DFL = 1;  Verify page 525, sec. 24.7.2.1
-    	    
-    	    /* trigger the data transmission */
-    	    DataTransmissionRequest();
-    	    HeaderReceived();
-    	}
-    	else
-    	{
-    		
-    	}
-    	
-    	break;
-    case SLAVE4_ID_ID:
-    	if(GetLINStateMachineState()&0x1)		/* if header received */
-    	{
-    		
-    		LINFLEX_0.BIDR.B.DIR = 0; /* BDR direction - write probably not necessary*/
-        
-    	    /* fill the BDR registers */
-    	    LINFLEX_0.BDRL.B.DATA0 = 4;
-    	    LINFLEX_0.BDRL.B.DATA1 = 'G';
-    	    LINFLEX_0.BDRL.B.DATA2 = 'R';
-    	    LINFLEX_0.BDRL.B.DATA3 = 'V';
-    	    LINFLEX_0.BDRM.B.DATA4 = 'O';
-    	    LINFLEX_0.BDRM.B.DATA5 = 'M';
-    	    LINFLEX_0.BDRM.B.DATA6 = 'G';       
-    	    
-    	    /* trigger the data transmission */
-    	    DataTransmissionRequest();
-    	    HeaderReceived();
-    	}
-    	else
-    	{
-    		
-    	}
-    	
-        	break;
-    default:
-    	break;
-    }
-	
+
+	/* --------------------------------------------------------------------------
+	*  Name                 :  LINFlex_0_TX_ISR
+	*  Description          :  This function is called when a data transmission
+	*   or a header interrupt take place depending on the filters defined.
+	*    If a header interrupt happens, the data transmission
+	*   request is made. When data is transmitted, an acknowledge of it is made.
+	*  							
+	*  Parameters           : void
+	*  								
+	*  Return               :  void
+	*  -------------------------------------------------------------------------
+	*/
+	T_UBYTE lub_lin_bidr;
+	lub_lin_bidr = GetBufferId();
+	/* if  interrupt generated when header received */
+	if(GetLINStateMachineState()&0x1)
+	{
+		
+		switch(lub_lin_bidr)
+		{
+		case SLAVE4_RSP_ID:
+			
+				
+				SetBufferDirection(TRANSMIT); /* BDR direction - write */
+			
+				/* fill the BDR registers */
+				/*Return Led status*/
+				LINFLEX_0.BDRL.B.DATA0 = GetLedState();
+				/*Return Node status*/
+				LINFLEX_0.BDRL.B.DATA1 = GetNodeState();    
+				
+				//LINFLEX_0.BIDR.B.DFL = 1;  Verify page 525, sec. 24.7.2.1
+				
+				/* trigger the data transmission */
+				DataTransmissionRequest();
+				HeaderReceived();
+			
+			break;
+		case SLAVE4_ID_ID:
+
+				SetBufferDirection(TRANSMIT); /* BDR direction - write probably not necessary*/
+			
+				/* fill the BDR registers */
+				LINFLEX_0.BDRL.B.DATA0 = 4;
+				LINFLEX_0.BDRL.B.DATA1 = 'G';
+				LINFLEX_0.BDRL.B.DATA2 = 'R';
+				LINFLEX_0.BDRL.B.DATA3 = 'V';
+				LINFLEX_0.BDRM.B.DATA4 = 'O';
+				LINFLEX_0.BDRM.B.DATA5 = 'M';
+				LINFLEX_0.BDRM.B.DATA6 = 'G';       
+				
+				/* trigger the data transmission */
+				DataTransmissionRequest();
+				HeaderReceived();
+			
+				break;
+		default:
+			break;
+		}
+	}	
+	else if(GetLINStateMachineState()&0x2)	/* if interrupt generated when data transmitted */
+	{
+		 		
+		DataTxAcknowledge();
+	}	else {/*Do nothing*/}
 
 	
 }
@@ -322,4 +333,5 @@ void SendNodeCommand(T_UBYTE lub_NodeFlg)
 	rub_NodeFlag = lub_NodeFlg;
 	
 }
+
 

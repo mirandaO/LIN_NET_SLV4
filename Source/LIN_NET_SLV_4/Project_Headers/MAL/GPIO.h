@@ -11,10 +11,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.x $
- * $Revision: version $
- * $Author: author $
- * $Date: date $
+ * $Source: GPIO.h $
+ * $Revision: 18 $
+ * $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
+ * $Date: 12/06/2015 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -60,6 +60,7 @@
 /*============================================================================*/
 #define OUTPUT 0x0200
 #define INPUT 0x0100
+
 /* Exported Variables */
 /*============================================================================*/
 /* Exported functions prototypes */
