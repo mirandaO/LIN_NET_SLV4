@@ -95,7 +95,6 @@ void LINFlex_0_RX_ISR(void)
 	//T_ULONG lub_LinStatus;
 	
 	lin_bidr = GetBufferId();
-	HeaderReceived();
 	
 	    switch(lin_bidr)
 	    {
@@ -109,10 +108,11 @@ void LINFlex_0_RX_ISR(void)
 				/* get the data */
 				LinSlaveDataReception(laub_RxData);
 				/*Send data either to slave or led machine*/
-				ProcessCommand(laub_RxData);
+				ProcessCommand(laub_RxData[0]);
 				ReceptionComplete();
+				HeaderReceived();
 				ClearMessageBuffer();
-				//HeaderReceived();
+				
 				
 				break;
 			case MASTER_CMD_SLV4_ID:
@@ -125,10 +125,11 @@ void LINFlex_0_RX_ISR(void)
 				/* get the data */
 				LinSlaveDataReception(laub_RxData);
 				/*Send data either to slave or led machine*/
-				ProcessCommand(laub_RxData);
+				ProcessCommand(laub_RxData[0]);
 				ReceptionComplete();
+				HeaderReceived();
 				ClearMessageBuffer();
-				//HeaderReceived();
+				
 				
 				break;
 			default:
@@ -252,7 +253,7 @@ void SendMessage(void)
 	counter++;
 }
 
-void ProcessCommand(T_UBYTE laub_Msg[1])
+void ProcessCommand(T_UBYTE lub_Msg)
 {
 	/* --------------------------------------------------------------------------
 	*  Name                 :  ProcessCommand
@@ -270,7 +271,7 @@ void ProcessCommand(T_UBYTE laub_Msg[1])
 	*/
 					 
 				
-	switch (laub_Msg[0])
+	switch (lub_Msg)
 	{
 	case CMD_NONE:
 		break;

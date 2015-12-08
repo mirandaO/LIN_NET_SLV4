@@ -74,6 +74,10 @@ void Init_Lin(void)
 	/* Send INIT mode request */
 	LINFLEX_0.LINCR1.R = INIT_MODE; /* SLEEP=0, INIT=1 */	
 	LINFLEX_0.UARTCR.B.UART = 0;	  /* UART working on LIN mode 
+	/*master break length reg MBL 11b = 13 bit length */
+	LINFLEX_0.LINCR1.B.MBL = MASTER_13BIT_LENGTH;
+	// LASE=1 slave automatic resynch enable
+	LINFLEX_0.LINCR1.B.LASE = AUTO_RESYNCH;
 	/* wait for the INIT mode VERIFY!!!!!!!!!!!!!!!*/
 	while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
 	/*Enable LIN transmission channel 0*/
@@ -122,11 +126,6 @@ void Init_Lin(void)
 	LINFLEX_0.IFCR[3].B.ID = SLAVE4_ID_ID;
 	
 	LINFLEX_0.LINIER.R = TX_RX_HEADER_INTPT;	// enable RX, TX and header interrupt
-	
-	// LASE=1 slave automatic resynch enable
-	LINFLEX_0.LINCR1.B.LASE = AUTO_RESYNCH;
-	/*master break length reg MBL 11b = 13 bit length */
-	LINFLEX_0.LINCR1.B.MBL = MASTER_13BIT_LENGTH;
 	
 	/*Enter normal mode */
 	LINFLEX_0.LINCR1.B.INIT = ENTER_NORMAL_MODE;

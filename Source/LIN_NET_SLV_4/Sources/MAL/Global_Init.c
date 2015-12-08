@@ -91,6 +91,7 @@ void Global_Init(void)
 	initModesAndClock();
 	GPIO_Init();
 	INTC_init();
+	Init_Lin();
 }
 
 void STM_init(void)

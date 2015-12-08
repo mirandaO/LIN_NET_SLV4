@@ -102,6 +102,9 @@ void initModesAndClock(void)
     
    	/* Note: could wait here using timer and/or I_TC IRQ */
    	while(ME.GS.B.S_CURRENTMODE != 4) {} /* Verify RUN0 is the current mode                   */
+   	CGM.SC_DC0.R = 0x80;
+   	CGM.SC_DC1.R = 0x80;
+   	CGM.SC_DC2.R = 0x80;
 }
 
 

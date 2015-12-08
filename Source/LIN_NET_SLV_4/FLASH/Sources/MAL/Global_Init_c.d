@@ -19,4 +19,5 @@ Sources/MAL/Global_Init_c.obj: C:\Users\x\workspace\LIN_NET_SLV_4\Sources\MAL\Gl
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\IntcInterrupts.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\GPIO.h \
 	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\System.h \
-	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\SW_Interrupts.h 
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\SW_Interrupts.h \
+	C:\Users\x\workspace\LIN_NET_SLV_4\Project_Headers\MAL\LIN_Init.h 

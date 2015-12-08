@@ -79,7 +79,7 @@ typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
 /*Enhanced 0, classic 1*/
 #define ENHANCED_CHECKSUM 1
 #define ENABLE_BIT_ERROR 1
-#define ENABLE_FILTERS 0b00000011
+#define ENABLE_FILTERS 0xf
 #define DISABLE_FILTERS 0b00000000
 #define FILTER_LIST_MODE 0x0
 /*--------------FILTERS BEGINNING-----------------*/
@@ -119,7 +119,7 @@ typedef enum E_LED_STATE{OFF, ON, TOGGLING}t_LEDstat;
 #define TX_RX_HEADER_INTPT 7 
 
 #define AUTO_RESYNCH 1
-#define MASTER_13BIT_LENGTH 3
+#define MASTER_13BIT_LENGTH 0x03
 #define ENTER_NORMAL_MODE 0
 #define TRANSMIT 1
 #define RECEIVE 0
@@ -143,4 +143,6 @@ T_UBYTE GetBufferId(void);
 void SetBufferDirection(T_UBYTE);
 void DataTxAcknowledge(void);
 void WriteTxBuffer(T_UBYTE);
+extern T_UBYTE GetLedState(void);
+extern T_UBYTE GetNodeState(void);
 #endif /* LIN_INIT_H_ */

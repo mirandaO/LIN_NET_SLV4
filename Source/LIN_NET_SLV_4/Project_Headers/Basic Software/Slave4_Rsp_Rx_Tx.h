@@ -75,7 +75,7 @@ void LINFlex_0_TX_ISR(void);
 void SendMessage(void);
 /*Interrupts End*/
 
-void ProcessCommand(T_UBYTE []);
+void ProcessCommand(T_UBYTE);
 void SendLedCommand(T_UBYTE);
 void SendNodeCommand(T_UBYTE);
 

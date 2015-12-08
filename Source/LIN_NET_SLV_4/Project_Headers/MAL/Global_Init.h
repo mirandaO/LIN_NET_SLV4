@@ -59,6 +59,7 @@
 #include "MAL\GPIO.h"
 #include "MAL\System.h"
 #include "MAL\SW_Interrupts.h"
+#include "MAL\LIN_Init.h"
 /* Constants and types */
 /*============================================================================*/
 
