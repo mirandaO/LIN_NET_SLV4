@@ -1,29 +1,9 @@
 /*
- * SLAVE4_RSP_RX_TX.c
+ * ProccesCommand.h
  *
- *  Created on: Dec 4, 2015
+ *  Created on: Dec 13, 2015
  *      Author: x
  */
-
-/*============================================================================*/
-/*                        I BS SOFTWARE GROUP                                 */
-/*============================================================================*/
-/*                        OBJECT SPECIFICATION                                */
-/*============================================================================*/
-/*!
- * $Source: Slave4_Rsp_Rx_Rt.c $
- * $Revision: 18 $
-* $Author: Guillermo Ramírez Vázquez, Óscar Francisco Miranda García
- * $Date: 12/06/2015 $
- */
-/*============================================================================*/
-/* DESCRIPTION :                                                              */
-/** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
-*/
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
 /* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
@@ -45,33 +25,30 @@
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
-/*
- * $Log: GPIO.h  $
-  ============================================================================*/
-#ifndef SLAVE4_RSP_RX_TX_C_
-#define SLAVE4_RSP_RX_TX_C_
-
+#ifndef PROCCESCOMMAND_H_
+#define PROCCESCOMMAND_H_
 /* Includes */
 /*============================================================================*/
 #include "MAL\LIN_Init.h"
 
-/* Constants and types */
-/*============================================================================*/
-#define SENDSTATES 1
-#define	SENDTEAMINFO 0
-#define COMMANDRECEIVED 1
-
+#define COMMANDDISPATCHED 0
+#define COMMANDINQUEUE 1
 /* Exported Variables */
 /*============================================================================*/
-T_UBYTE rub_CommandFlag;
-T_UBYTE raub_RxData[8];
+extern T_UBYTE rub_CommandFlag;
+extern T_UBYTE raub_RxData[8];
+extern e_cmdType;
+T_UBYTE rub_LedFlag = OFF;
+T_UBYTE rub_NodeFlag = DISABLED;
 /* Exported functions prototypes */
 /*============================================================================*/
 
-/*Interrupts Beginnig*/
-void LINFlex_0_RX_ISR(void);
-void LINFlex_0_TX_ISR(void);
-/*Interrupts End*/
 
+extern T_UBYTE GetNodeState(void);
+extern T_UBYTE GetLedState(void);
 
-#endif /* SLAVE4_RSP_RX_TX_C_ */
+void ProcessCommand(void);
+void SendLedCommand(T_UBYTE);
+void SendNodeCommand(T_UBYTE);
+
+#endif /* PROCCESCOMMAND_H_ */

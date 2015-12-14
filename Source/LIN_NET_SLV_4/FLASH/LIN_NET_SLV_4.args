@@ -3,6 +3,7 @@
 "./Project_Settings/Startup_Code/MPC5606B_Startup_c.obj"
 "./Project_Settings/Startup_Code/MPC5606B_HWInit_c.obj"
 "./Sources/Application/SlaveApp_c.obj"
+"./Sources/Application/ProcessCommand_c.obj"
 "./Sources/Application/LED_App_c.obj"
 "./Sources/Basic Software/Slave4_Rsp_Rx_Tx_c.obj"
 "./Sources/MAL/System_c.obj"

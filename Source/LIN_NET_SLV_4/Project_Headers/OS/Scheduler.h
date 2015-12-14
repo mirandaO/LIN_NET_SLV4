@@ -60,7 +60,7 @@
 extern enum{
 	E_TASK1, 
 	E_TASK2,
-	
+	E_TASK3,
 	/*DO NOT MODIFIED OR ERASE*/
 	E_TASK_NUM
 	
@@ -84,6 +84,7 @@ typedef struct {
 /*============================================================================*/
 extern void Slave_StateMachine(void);
 extern void Led_StateMachine(void);
+extern void ProcessCommand(void);
 
 void Tick_Flag(void);
 void kernel (void);

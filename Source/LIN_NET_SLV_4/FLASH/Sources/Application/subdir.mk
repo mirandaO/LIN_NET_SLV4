@@ -7,30 +7,37 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS_QUOTED += \
 "../Sources/Application/LED_App.c" \
+"../Sources/Application/ProcessCommand.c" \
 "../Sources/Application/SlaveApp.c" \
 
 C_SRCS += \
 ../Sources/Application/LED_App.c \
+../Sources/Application/ProcessCommand.c \
 ../Sources/Application/SlaveApp.c \
 
 OBJS += \
 ./Sources/Application/LED_App_c.obj \
+./Sources/Application/ProcessCommand_c.obj \
 ./Sources/Application/SlaveApp_c.obj \
 
 OBJS_QUOTED += \
 "./Sources/Application/LED_App_c.obj" \
+"./Sources/Application/ProcessCommand_c.obj" \
 "./Sources/Application/SlaveApp_c.obj" \
 
 C_DEPS += \
 ./Sources/Application/LED_App_c.d \
+./Sources/Application/ProcessCommand_c.d \
 ./Sources/Application/SlaveApp_c.d \
 
 OBJS_OS_FORMAT += \
 ./Sources/Application/LED_App_c.obj \
+./Sources/Application/ProcessCommand_c.obj \
 ./Sources/Application/SlaveApp_c.obj \
 
 C_DEPS_QUOTED += \
 "./Sources/Application/LED_App_c.d" \
+"./Sources/Application/ProcessCommand_c.d" \
 "./Sources/Application/SlaveApp_c.d" \
 
 
@@ -48,9 +55,17 @@ Sources/Application/%.d: ../Sources/Application/%.c
 	
 	@echo ' '
 
-Sources/Application/SlaveApp_c.obj: ../Sources/Application/SlaveApp.c
+Sources/Application/ProcessCommand_c.obj: ../Sources/Application/ProcessCommand.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #13 $<'
+	@echo 'Invoking: PowerPC Compiler'
+	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/Application/ProcessCommand.args" -o "Sources/Application/ProcessCommand_c.obj" "$<" -MD -gccdep
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/Application/SlaveApp_c.obj: ../Sources/Application/SlaveApp.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #14 $<'
 	@echo 'Invoking: PowerPC Compiler'
 	"$(PAToolsDirEnv)/mwcceppc" @@"Sources/Application/SlaveApp.args" -o "Sources/Application/SlaveApp_c.obj" "$<" -MD -gccdep
 	@echo 'Finished building: $<'

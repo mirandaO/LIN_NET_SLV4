@@ -90,52 +90,17 @@ void LINFlex_0_RX_ISR(void)
 	*  Return               :  void
 	*  -------------------------------------------------------------------------
 	*/
-	T_UBYTE lin_bidr;
-	T_UBYTE laub_RxData[8];
-	//T_ULONG lub_LinStatus;
 	
-	lin_bidr = GetBufferId();
+			/* wait for RMB */
+	ReleaseMessageBuffer();
 	
-	    switch(lin_bidr)
-	    {
-			case MASTER_CMD_ALL_ID:
-				
-				//LINFLEX_0.BIDR.B.DFL = 0; one byte verify page 526
-				//lub_LinStatus = GetLINStateMachineState();
-					/* wait for RMB */
-				ReleaseMessageBuffer();
-				
-				/* get the data */
-				LinSlaveDataReception(laub_RxData);
-				/*Send data either to slave or led machine*/
-				ProcessCommand(laub_RxData[0]);
-				ReceptionComplete();
-				HeaderReceived();
-				ClearMessageBuffer();
-				
-				
-				break;
-			case MASTER_CMD_SLV4_ID:
-				
-				//LINFLEX_0.BIDR.B.DFL = 0; one byte verify page 526
-				//lub_LinStatus = GetLINStateMachineState();
-					/* wait for RMB */
-				ReleaseMessageBuffer();
-				
-				/* get the data */
-				LinSlaveDataReception(laub_RxData);
-				/*Send data either to slave or led machine*/
-				ProcessCommand(laub_RxData[0]);
-				ReceptionComplete();
-				HeaderReceived();
-				ClearMessageBuffer();
-				
-				
-				break;
-			default:
-				break;
-	    }
-
+	/* get the data */
+	LinSlaveDataReception(raub_RxData);
+	/*Send data either to slave or led machine*/
+	rub_CommandFlag = COMMANDRECEIVED;
+	ReceptionComplete();
+	HeaderReceived();
+	ClearMessageBuffer();
 }
 
 void LINFlex_0_TX_ISR(void)
@@ -201,131 +166,8 @@ void LINFlex_0_TX_ISR(void)
 	
 }
 
-void SendMessage(void)
-{
-	/* --------------------------------------------------------------------------
-	*  Name                 :  Send Message
-	*  Description          :  Emulates the master commands of function ProcessCommand
-	*  by using the third switch of the
-	*  board.   When switch is pressed and interrupt take place. Each command correspond to 
-	*  a value of counter variable. 
-	*  This function was created for testing purposes to verify the correct functionality 
-	*  of the state machines.
-	*  							
-	*  Parameters           :  void
-	*  								
-	*  Return               :  void
-	*  -------------------------------------------------------------------------
-	*/
-	static int counter = 1;
-	if (SWITCH_INTERR_FLAG)
-	{
-		switch (counter)
-			{
 
-			case 2:
-				SendLedCommand(ON);
-				break;
-			case 3:
-				SendLedCommand(OFF);
-				break;
-			case 4:
-				SendLedCommand(TOGGLING);
-				break;
-			case 5:
-				SendNodeCommand(DISABLED);
-				counter = 0;
-					break;
-			case 1:
-				SendNodeCommand(ENABLED);
-				break;
-			default :
-				break;
-			}
-		
-		SWITCH_INTERR_FLAG = 1;
-	}
-	else
-	{
-	  /*DO NOTHING*/
-	}
-	
-	counter++;
-}
 
-void ProcessCommand(T_UBYTE lub_Msg)
-{
-	/* --------------------------------------------------------------------------
-	*  Name                 :  ProcessCommand
-	*  Description          :  Reads the response of the master and determines which command
-	*  							the slave will execute: whether to do nothing, request the Led_StateMachine
-	*  							 to turn on/off or toggle, or request the Node_StateMachine to disable or enable 
-	*  							 the node.
-	*  							
-	*  Parameters           :  T_UBYTE laub_Msg[1]
-	*  								Possible values: CMD_LED_ON, CMD_LED_OFF or CMD_LED_TOGGLING,
-	*  								 CMD_DISABLE_SLV, CMD_ENABLE_SLV.
-	*  								
-	*  Return               :  void
-	*  -------------------------------------------------------------------------
-	*/
-					 
-				
-	switch (lub_Msg)
-	{
-	case CMD_NONE:
-		break;
-	case CMD_LED_ON:
-		SendLedCommand(ON);
-		break;
-	case CMD_LED_OFF:
-		SendLedCommand(OFF);
-		break;
-	case CMD_LED_TOGGLING:
-		SendLedCommand(TOGGLING);
-		break;
-	case CMD_DISABLE_SLV:
-		SendNodeCommand(DISABLED);
-			break;
-	case CMD_ENABLE_SLV:
-		SendNodeCommand(ENABLED);
-		break;
-	default :
-		break;
-	}
-}
 
-void SendLedCommand(T_UBYTE lub_LedFlg)
-{
-	/* --------------------------------------------------------------------------
-	*  Name                 :  SendLedCommand
-	*  Description          :  Change the value of the global variable led flag 
-	*  							that will be used by the Led_StateMachine to change its
-	*  							state variable. 
-	*  Parameters           :  T_UBYTE lub_LedFlg
-	*  								Possible values: CMD_LED_ON, CMD_LED_OFF or CMD_LED_TOGGLING.
-	*  								
-	*  Return               :  void
-	*  -------------------------------------------------------------------------
-	*/
-	rub_LedFlag = lub_LedFlg;
-	
-}
-
-void SendNodeCommand(T_UBYTE lub_NodeFlg)
-{
-	/* --------------------------------------------------------------------------
-	*  Name                 :  SendNodeCommand
-	*  Description          :  Change the value of the global variable node flag 
-	*  							that will be used by the Node_StateMachine to change its
-	*  							state variable. 
-	*  Parameters           :  T_UBYTE lub_NodeFlg
-	*  								Possible values: CMD_DISABLE_SLV, CMD_ENABLE_SLV.
-	*  Return               :  void
-	*  -------------------------------------------------------------------------
-	*/
-	rub_NodeFlag = lub_NodeFlg;
-	
-}
 
 

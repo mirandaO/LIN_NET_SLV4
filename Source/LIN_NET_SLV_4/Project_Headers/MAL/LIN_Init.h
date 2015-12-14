@@ -145,4 +145,5 @@ void DataTxAcknowledge(void);
 void WriteTxBuffer(T_UBYTE);
 extern T_UBYTE GetLedState(void);
 extern T_UBYTE GetNodeState(void);
+
 #endif /* LIN_INIT_H_ */

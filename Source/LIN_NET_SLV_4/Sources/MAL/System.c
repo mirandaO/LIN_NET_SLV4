@@ -93,8 +93,8 @@ void initModesAndClock(void)
    	ME.PCTL[LED2].R = 0x01;
    	ME.PCTL[LED3].R = 0x01;
    	ME.PCTL[LED4].R = 0x01;
-   	
-                                         
+   	ME.PCTL[48].R = 0x01; /* MPC56xxB/S LINflex_0: select ME.RUNPC[1] */
+   	//ME.PCTL[48].R = 0x01; /* MPC56xxB/S LINflex_0: select ME.RUNPC[1] */                                     
    	/* Mode Transition to enter RUN0 mode:               */
    	ME.MCTL.R = 0x40005AF0;              /* Enter RUN0 Mode & Key                             */
    	ME.MCTL.R = 0x4000A50F;              /* Enter RUN0 Mode & Inverted Key                    */  

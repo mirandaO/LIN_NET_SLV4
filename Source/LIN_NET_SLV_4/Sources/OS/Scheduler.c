@@ -63,8 +63,9 @@
 
 const S_TASK cas_TaskList[E_TASK_NUM] = {
   /*{Task, Period , Offset}*/
-	{Slave_StateMachine , 500, 0	},
-	{Led_StateMachine , 10, 	3}
+	{ProcessCommand, 50,    5		},
+	{Led_StateMachine , 10, 	3} ,
+	{Slave_StateMachine , 150, 0	}
 };
 
 /* Private functions prototypes */

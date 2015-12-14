@@ -79,7 +79,7 @@ void Init_Lin(void)
 	// LASE=1 slave automatic resynch enable
 	LINFLEX_0.LINCR1.B.LASE = AUTO_RESYNCH;
 	/* wait for the INIT mode VERIFY!!!!!!!!!!!!!!!*/
-	while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
+	//while (INIT_MODE != LINFLEX_0.LINSR.B.LINS) {}
 	/*Enable LIN transmission channel 0*/
 	GPIO_En(LIN0TX,ENABLE_LIN0TX);
 	/*Enable LIN transmission channel 0*/
@@ -290,6 +290,8 @@ void WriteTxBuffer(T_UBYTE lub_Response)
 		LINFLEX_0.BDRM.B.DATA6 = 'G';      
 	} 
 }
+
+
 /* Private functions */
 /*============================================================================*/
 

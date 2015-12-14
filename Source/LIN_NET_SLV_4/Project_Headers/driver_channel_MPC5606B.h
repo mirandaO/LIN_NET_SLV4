@@ -130,8 +130,8 @@ extern enum E_PORT
 	LED4,  /*Port E, Pin 7.  Functions: GPIO[71] - LED4, E0UC[23], CS2_0, MA[0] and EIRQ[23]                */
 	PE08,  /*Port E, Pin 8.  Functions: GPIO[72], CAN2TX, E0UC[22] and CAN3TX                               */
 	PE09,  /*Port E, Pin 9.  Functions: GPIO[73], E0UC[23], WKPU[7]^5, CAN2RX and CAN3RX                    */
-	PE10,  /*Port E, Pin 10. Functions: GPIO[74], LIN3TX, CS3_1, E1UC[30] and EIRQ[10]                      */
-	PE11,  /*Port E, Pin 11. Functions: GPIO[75], E0UC[24], CS4_1, LIN3RX and WKPU[14]^5                    */
+	LIN3TX,  /*Port E, Pin 10. Functions: GPIO[74], LIN3TX, CS3_1, E1UC[30] and EIRQ[10]                      */
+	LIN3RX,  /*Port E, Pin 11. Functions: GPIO[75], E0UC[24], CS4_1, LIN3RX and WKPU[14]^5                    */
 	PE12,  /*Port E, Pin 12. Functions: GPIO[76], E1UC[19]^12, EIRQ[11], SIN_2 and ADC1_S[7]                */
 	PE13,  /*Port E, Pin 13. Functions: GPIO[77], SOUT_2 and E1UC[20]                                       */
 	PE14,  /*Port E, Pin 14. Functions: GPIO[78], SCK_2, E1UC[21] and EIRQ[12]                              */

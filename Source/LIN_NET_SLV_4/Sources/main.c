@@ -45,10 +45,13 @@
 /* Constants and types  */
 /*============================================================================*/
 #define SWITCH_VEC 43
+/*79 LINFlex_RXI LINFlex_3
+80 LINFlex_TXI LINFlex_3*/
 #define TX_VEC 80
 #define RX_VEC 79
 #define STM0_VEC 30
-
+/*122 LINFlex_RXI LINFlex_3
+123 LINFlex_TXI LINFlex_3*/
 /* Variables */
 /*============================================================================*/
 
@@ -58,20 +61,15 @@
 	extern void Tick_Flag(void);
 	extern void LINFlex_0_RX_ISR(void);
 	extern void LINFlex_0_TX_ISR(void);
-	extern void SendMessage(void);
 
 int main(void) {
 	
 	
   Global_Init();
   GPIO_SetState (LED1, 1);
-  asm(" wrteei 1");
-  SIU.IFEER.B.IFEE21 = 1;	        /* Enable falling edge event on EIRQ21    */
-  SIU.IRER.B.IRE21   = 1;		    /* Enable interrupt Results EIRQ21        */
-  INTC_InstallINTCInterruptHandler(Tick_Flag,STM0_VEC,1); /* vector 30 for STM[0]*/
-  INTC_InstallINTCInterruptHandler(LINFlex_0_RX_ISR, RX_VEC, 2); /* vector 79 for LINFlex Rx*/
-  INTC_InstallINTCInterruptHandler(LINFlex_0_TX_ISR, TX_VEC, 3); /* vector 79 for LINFlex Tx*/
-  INTC_InstallINTCInterruptHandler(SendMessage, SWITCH_VEC, 4); /* vector 43 for 3rd switch interrupt*/
+  INTC_InstallINTCInterruptHandler(Tick_Flag,STM0_VEC,4); /* vector 30 for STM[0]*/
+  INTC_InstallINTCInterruptHandler(LINFlex_0_RX_ISR, RX_VEC, 1); /* vector 79 for LINFlex Rx*/
+  INTC_InstallINTCInterruptHandler(LINFlex_0_TX_ISR, TX_VEC, 2); /* vector 79 for LINFlex Tx*/
   kernel();
 
 
